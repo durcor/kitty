@@ -146,7 +146,8 @@ def draw_tab_with_powerline(draw_data: DrawData, screen: Screen, tab: TabBarData
         screen.cursor.x -= 2
         screen.cursor.bg = default_bg
         screen.cursor.fg = inactive_bg
-        screen.draw('   ')
+        # screen.draw('   ')
+        screen.draw(' ')
         return screen.cursor.x
 
     start_draw = 2
@@ -154,7 +155,8 @@ def draw_tab_with_powerline(draw_data: DrawData, screen: Screen, tab: TabBarData
         screen.cursor.x -= 2
         screen.cursor.fg = inactive_bg
         screen.cursor.bg = tab_bg
-        screen.draw(' ')
+        # screen.draw(' ')
+        screen.draw(' ')
         screen.cursor.fg = tab_fg
     elif screen.cursor.x == 0:
         screen.cursor.bg = tab_bg
@@ -178,9 +180,11 @@ def draw_tab_with_powerline(draw_data: DrawData, screen: Screen, tab: TabBarData
             screen.cursor.bg = default_bg
         else:
             screen.cursor.bg = inactive_bg
-        screen.draw('')
+        # screen.draw('')
+        screen.draw(' ')
     else:
-        screen.draw(' ')
+        # screen.draw(' ')
+        screen.draw(' /')
 
     end = screen.cursor.x
     if end < screen.columns:

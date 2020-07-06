@@ -142,12 +142,19 @@ def draw_tab_with_powerline(draw_data: DrawData, screen: Screen, tab: TabBarData
 
     min_title_length = 1 + 2
 
+    cfg_powerline_char = "triangle"
+    if cfg_powerline_char == "arrow":
+        powerline_char = ''
+        powerline_sep = ''
+    elif cfg_powerline_char == "triangle":
+        powerline_char = ''
+        powerline_sep = ''
+
     if screen.cursor.x + min_title_length >= screen.columns:
         screen.cursor.x -= 2
         screen.cursor.bg = default_bg
         screen.cursor.fg = inactive_bg
-        # screen.draw('   ')
-        screen.draw(' ')
+        screen.draw(powerline_char+'   ')
         return screen.cursor.x
 
     start_draw = 2
@@ -155,8 +162,7 @@ def draw_tab_with_powerline(draw_data: DrawData, screen: Screen, tab: TabBarData
         screen.cursor.x -= 2
         screen.cursor.fg = inactive_bg
         screen.cursor.bg = tab_bg
-        # screen.draw(' ')
-        screen.draw(' ')
+        screen.draw(powerline_char+' ')
         screen.cursor.fg = tab_fg
     elif screen.cursor.x == 0:
         screen.cursor.bg = tab_bg
@@ -180,11 +186,9 @@ def draw_tab_with_powerline(draw_data: DrawData, screen: Screen, tab: TabBarData
             screen.cursor.bg = default_bg
         else:
             screen.cursor.bg = inactive_bg
-        # screen.draw('')
-        screen.draw(' ')
+        screen.draw(powerline_char)
     else:
-        # screen.draw(' ')
-        screen.draw(' /')
+        screen.draw(' '+powerline_sep)
 
     end = screen.cursor.x
     if end < screen.columns:

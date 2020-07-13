@@ -15,10 +15,18 @@ To update |kitty|, :doc:`follow the instructions <binary>`.
 - Improve anti-aliasing of triangular box drawing characters, noticeable on
   low-resolution screens (:iss:`2844`)
 
+- Implement support for box drawing rounded-corners characters (:iss:`2240`)
+
+- When a character from the Unicode Dingbat block is followed by a space, use
+  the extra space to render a larger version of the character (:iss:`2850`)
+
 - macOS: Fix the LC_TYPE env var being set to UTF-8 on systems in which the
   language and country code do not form a valid locale (:iss:`1233`)
 
 - macOS: Fix :kbd:`cmd+plus` not changing font size (:iss:`2839`)
+
+- Make neighboring window selection in grid and splits layouts more intelligent
+  (:pull:`2840`)
 
 - Allow passing the current selection to kittens (:iss:`2796`)
 
@@ -35,6 +43,8 @@ To update |kitty|, :doc:`follow the instructions <binary>`.
   (:iss:`2822`)
 
 - Fix ``launch --location=last`` not working (:iss:`2841`)
+
+- Fix incorrect centering when a PUA or symbol glyph is followed by more than one space
 
 
 0.18.1 [2020-06-23]

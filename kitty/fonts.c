@@ -1132,6 +1132,11 @@ render_run(FontGroup *fg, CPUCell *first_cpu_cell, GPUCell *first_gpu_cell, inde
     }
 }
 
+static inline bool
+is_non_emoji_dingbat(char_type ch) {
+    return 0x2700 <= ch && ch <= 0x27bf && !is_emoji(ch);
+}
+
 void
 render_line(FONTS_DATA_HANDLE fg_, Line *line, index_type lnum, Cursor *cursor, DisableLigature disable_ligature_strategy) {
 #define RENDER if (run_font_idx != NO_FONT && i > first_cell_in_run) { \
@@ -1154,7 +1159,7 @@ render_line(FONTS_DATA_HANDLE fg_, Line *line, index_type lnum, Cursor *cursor, 
 
         if (
                 cell_font_idx != MISSING_FONT &&
-                ((is_fallback_font && !is_emoji_presentation && is_symbol(cpu_cell->ch)) || (cell_font_idx != BOX_FONT && is_private_use(cpu_cell->ch)))
+                ((is_fallback_font && !is_emoji_presentation && is_symbol(cpu_cell->ch)) || (cell_font_idx != BOX_FONT && (is_private_use(cpu_cell->ch))) || is_non_emoji_dingbat(cpu_cell->ch))
         ) {
             unsigned int desired_cells = 1;
             if (cell_font_idx > 0) {
@@ -1168,7 +1173,7 @@ render_line(FONTS_DATA_HANDLE fg_, Line *line, index_type lnum, Cursor *cursor, 
             unsigned int num_spaces = 0;
             while ((line->cpu_cells[i+num_spaces+1].ch == ' ')
                     && num_spaces < MAX_NUM_EXTRA_GLYPHS_PUA
-                    && num_spaces < desired_cells
+                    && num_spaces + 1 < desired_cells
                     && i + num_spaces + 1 < line->xnum) {
                 num_spaces++;
                 // We have a private use char followed by space(s), render it as a multi-cell ligature.
